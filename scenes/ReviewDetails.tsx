@@ -1,6 +1,14 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {Button, Image, StyleSheet, Text, View} from 'react-native';
 import Card from '../components/Card';
+import {RootStackParamList} from '../types/StackParamList';
+import type {RouteProp} from '@react-navigation/native';
+
+type ReviewDetailsRouteProp = NativeStackScreenProps<
+  RootStackParamList,
+  'ReviewDetails'
+>;
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const images = {
+const images: {ratings: {[details: string]: any}} = {
   ratings: {
     '1': require('../assets/rating-1.png'),
     '2': require('../assets/rating-2.png'),
@@ -21,7 +29,7 @@ const images = {
     '5': require('../assets/rating-5.png'),
   },
 };
-const ReviewDetails = ({route}) => {
+const ReviewDetails = ({route}: ReviewDetailsRouteProp) => {
   return (
     <View style={styles.container}>
       <Card>
@@ -29,7 +37,7 @@ const ReviewDetails = ({route}) => {
         <Text>{route.params.body}</Text>
         <View style={styles.rating}>
           <Text>GameZone rating: </Text>
-          <Image source={images.ratings[route.params.rating]} />
+          <Image source={images.ratings[route.params.rating.toString()]} />
         </View>
       </Card>
     </View>

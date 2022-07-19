@@ -1,20 +1,28 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {
   Button,
   FlatList,
+  Keyboard,
   Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Card from '../components/Card';
+import {ReviewType} from '../types/ReviewType';
+import {RootStackParamList} from '../types/StackParamList';
+import ReviewForm from './ReviewForm';
 
-const Home = ({navigation}) => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+const Home = ({navigation}: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [reviews, setReviews] = useState([
+  const [reviews, setReviews] = useState<ReviewType[]>([
     {
       title: 'Zelda, Breath of Fresh Air',
       rating: 5,
@@ -29,23 +37,33 @@ const Home = ({navigation}) => {
     },
     {title: 'Not so "Final" Fantasy', rating: 5, body: 'lorem ipsum', key: '3'},
   ]);
-  const pressHandler = param => {
+
+  const pressHandler = (param: ReviewType) => {
     navigation.navigate('ReviewDetails', param);
+  };
+
+  const addReview = (review: ReviewType) => {
+    review.key = Math.random().toString();
+    setReviews(currentReviews => {
+      return [review, ...currentReviews];
+    });
+    setModalOpen(false);
   };
 
   return (
     <View style={styles.container}>
       <Modal visible={modalOpen} animationType="slide">
-        <View style={styles.modalContent}>
-          <Icon
-            name="close"
-            size={24}
-            style={{...styles.modalToggle, ...styles.modalClose}}
-            onPress={() => setModalOpen(false)}
-          />
-
-          <Text> Hello from modal.</Text>
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.modalContent}>
+            <Icon
+              name="close"
+              size={24}
+              style={{...styles.modalToggle, ...styles.modalClose}}
+              onPress={() => setModalOpen(false)}
+            />
+            <ReviewForm addReview={addReview} />
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
 
       <Icon

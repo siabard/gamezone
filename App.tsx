@@ -7,8 +7,9 @@ import Home from './scenes/Home';
 import ReviewDetails from './scenes/ReviewDetails';
 import About from './scenes/About';
 import Header from './components/Header';
+import {RootStackParamList} from './types/StackParamList';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
 
 const DrawNavigation = () => {
