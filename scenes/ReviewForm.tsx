@@ -1,6 +1,6 @@
 import React from 'react';
 import {Formik} from 'formik';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import * as yup from 'yup';
 import FlatButton from '../components/FlatButton';

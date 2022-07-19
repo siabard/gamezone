@@ -1,9 +1,8 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {Button, Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import Card from '../components/Card';
 import {RootStackParamList} from '../types/StackParamList';
-import type {RouteProp} from '@react-navigation/native';
 
 type ReviewDetailsRouteProp = NativeStackScreenProps<
   RootStackParamList,
